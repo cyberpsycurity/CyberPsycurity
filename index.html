@@ -10,7 +10,88 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script type="text/javascript">
+										      var ifr = document.getElementById("JotFormIFrame-212080449669866");
+										      if (ifr) {
+										        var src = ifr.src;
+										        var iframeParams = [];
+										        if (window.location.href && window.location.href.indexOf("?") > -1) {
+										          iframeParams = iframeParams.concat(window.location.href.substr(window.location.href.indexOf("?") + 1).split('&'));
+										        }
+										        if (src && src.indexOf("?") > -1) {
+										          iframeParams = iframeParams.concat(src.substr(src.indexOf("?") + 1).split("&"));
+										          src = src.substr(0, src.indexOf("?"))
+										        }
+										        iframeParams.push("isIframeEmbed=1");
+										        ifr.src = src + "?" + iframeParams.join('&');
+										      }
+										      window.handleIFrameMessage = function(e) {
+										        if (typeof e.data === 'object') { return; }
+										        var args = e.data.split(":");
+										        if (args.length > 2) { iframe = document.getElementById("JotFormIFrame-" + args[(args.length - 1)]); } else { iframe = document.getElementById("JotFormIFrame"); }
+										        if (!iframe) { return; }
+										        switch (args[0]) {
+										          case "scrollIntoView":
+										            iframe.scrollIntoView();
+										            break;
+										          case "setHeight":
+										            iframe.style.height = args[1] + "px";
+										            break;
+										          case "collapseErrorPage":
+										            if (iframe.clientHeight > window.innerHeight) {
+										              iframe.style.height = window.innerHeight + "px";
+										            }
+										            break;
+										          case "reloadPage":
+										            window.location.reload();
+										            break;
+										          case "loadScript":
+										            if( !window.isPermitted(e.origin, ['jotform.com', 'jotform.pro']) ) { break; }
+										            var src = args[1];
+										            if (args.length > 3) {
+										                src = args[1] + ':' + args[2];
+										            }
+										            var script = document.createElement('script');
+										            script.src = src;
+										            script.type = 'text/javascript';
+										            document.body.appendChild(script);
+										            break;
+										          case "exitFullscreen":
+										            if      (window.document.exitFullscreen)        window.document.exitFullscreen();
+										            else if (window.document.mozCancelFullScreen)   window.document.mozCancelFullScreen();
+										            else if (window.document.mozCancelFullscreen)   window.document.mozCancelFullScreen();
+										            else if (window.document.webkitExitFullscreen)  window.document.webkitExitFullscreen();
+										            else if (window.document.msExitFullscreen)      window.document.msExitFullscreen();
+										            break;
+										        }
+										        var isJotForm = (e.origin.indexOf("jotform") > -1) ? true : false;
+										        if(isJotForm && "contentWindow" in iframe && "postMessage" in iframe.contentWindow) {
+										          var urls = {"docurl":encodeURIComponent(document.URL),"referrer":encodeURIComponent(document.referrer)};
+										          iframe.contentWindow.postMessage(JSON.stringify({"type":"urls","value":urls}), "*");
+										        }
+										      };
+										      window.isPermitted = function(originUrl, whitelisted_domains) {
+										        var url = document.createElement('a');
+										        url.href = originUrl;
+										        var hostname = url.hostname;
+										        var result = false;
+										        if( typeof hostname !== 'undefined' ) {
+										          whitelisted_domains.forEach(function(element) {
+										              if( hostname.slice((-1 * element.length - 1)) === '.'.concat(element) ||  hostname === element ) {
+										                  result = true;
+										              }
+										          });
+										          return result;
+										        }
+										      }
+										      if (window.addEventListener) {
+										        window.addEventListener("message", handleIFrameMessage, false);
+										      } else if (window.attachEvent) {
+										        window.attachEvent("onmessage", handleIFrameMessage);
+										      }
+										      </script>
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
 	</head>
 	<body class="is-preload">
 
@@ -76,6 +157,7 @@
 							</section>
 
 						<!-- Panel -->
+							<!--
 							<section class="panel">
 								<div class="intro color2">
 									<h2 class="major">What we offer</h2>
@@ -97,13 +179,42 @@
 									<a href="images/gallery/fulls/09.jpg" class="image filtered span-2-5" data-position="right"><img src="images/gallery/thumbs/09.jpg" alt="" /></a>
 								</div>
 							</section>
-
+						-->
 						<!-- Panel -->
 							<section class="panel color4-alt">
 								<div class="intro color4">
 									<h2 class="major">Contact</h2>
-									<p>Sed vel nibh libero. Mauris et lorem pharetra massa lorem turpis congue pulvinar. Vivamus sed feugiat finibus. Duis amet bibendum amet sed. Duis mauris ex, dapibus sed ligula tempus volutpat magna etiam.</p>
+									<p>Book a meeting with us to chat about your needs.</p>
+									
+									<a href=https://form.jotform.com/212080449669866 target="_blank">Click here to contact us</a>
 								</div>
+
+							<!--</section>
+							<section>
+									<div class="inner columns divided">
+										<div class="span-4">
+
+										    <iframe
+										      id="JotFormIFrame-212080449669866"
+										      title="Call Back Form"
+										      onload="window.parent.scrollTo(0,0)"
+										      allowtransparency="true"
+										      allowfullscreen="true"
+										      allow="geolocation; microphone; camera"
+										      src="https://form.jotform.com/212080449669866"
+										      frameborder="0"
+										      style="
+										      min-width: 300%;
+										      height:100px;
+										      border:none;"
+										      scrolling="yes"
+										    >
+										    </iframe>
+									    </div>
+								    </div>
+								</section>	-->	    
+
+								<!--
 								<div class="inner columns divided">
 									<div class="span-3-25">
 										<form method="post" action="#">
@@ -136,10 +247,11 @@
 										</ul>
 									</div>
 								</div>
-							</section>
+								-->
+							
 
 						<!-- Panel -->
-							<section class="panel color2-alt">
+							<!--<section class="panel color2-alt">
 								<div class="intro color2">
 									<h2 class="major">Elements</h2>
 									<p>Sed vel nibh libero. Mauris et lorem pharetra massa lorem turpis congue pulvinar. Vivamus sed feugiat finibus. Duis amet bibendum amet sed. Duis mauris ex, dapibus sed ligula tempus volutpat magna etiam. </p>
@@ -168,12 +280,12 @@
 										<h4>Preformatted</h4>
 										<pre><code>i = 0;
 
-while (!deck.isInOrder()) {
-    print 'Iteration ' + (i++);
-    deck.shuffle();
-}
+										while (!deck.isInOrder()) {
+										    print 'Iteration ' + (i++);
+										    deck.shuffle();
+										}
 
-print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
+										print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 									</div>
 									<div class="span-1-25">
@@ -405,15 +517,14 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 										</form>
 									</div>
 								</div>
-							</section>
+							</section>-->
 
 						<!-- Copyright -->
-							<div class="copyright">&copy; Untitled. Design: <a href="https://html5up.net">HTML5 UP</a>.</div>
+							
 
 					</div>
-
+<div class="copyright">&copy; CyberPsyCurity. Design: <a href="https://html5up.net" target="_blank">HTML5 UP</a>.</div>
 			</div>
-
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
