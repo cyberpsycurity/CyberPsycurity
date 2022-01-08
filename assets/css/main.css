@@ -2246,6 +2246,11 @@ input, select, textarea {
 				background-size: 128px 128px, auto;
 				background-color: #323459;
 			}
+			
+			.panel > *.color0-alt {
+				background-image: url("../../images/overlay.png"), linear-gradient(45deg, #939f74 20%, #2b8081 60%, #08204a);
+				background-size: 128px 128px, auto;
+			}
 
 		.panel > .intro {
 			padding: 3.5rem 3.5rem 2rem 3.5rem ;
@@ -3687,3 +3692,12 @@ input, select, textarea {
 			}
 
 	}
+/* Rotation */
+#rotation {display: none;}
+
+/* only when orientation is in portrait mode */
+@media all and (orientation:portrait) {
+    #rotation {
+         display: block;
+    }
+}
