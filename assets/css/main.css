@@ -72,6 +72,13 @@ input, select, textarea {
 	appearance: none;
 }
 
+p.fancy img {
+ display: none;
+}
+p.fancy:hover img {
+ display: inline; /* or block */
+}
+
 /* Page */
 
 	@-moz-keyframes load-spinner {
